@@ -1,0 +1,88 @@
+*** GRA W KÓŁKO I KRZYŻYK ***
+
+Gra "Kółko i Krzyżyk" (ang. Tic Tac Toe) została stworzona dla dwóch osób do gry w Terminalu. Projekt został podzielony
+na trzy pliki .py:
+
+- game_logic.py, który odpowiada za logikę gry;
+- conversation.py, który odpowiada za funckje związane z inputem, czyli rozmową z użytkownikami oraz;
+- main_game_tictactoe.py, gdzie znajduje się kod gry.
+
+Projekt posiada również plik how_to_instructions.txt, gdzie wyjaśniam jak powstał projekt.
+
+Pierwszym krokiem tworzenia gry było ustalenie, czy projekt powstanie za pomocą funkcji, czy może jednak klas. Szybka
+analiza kodów w Internecie ustanowiła mnie w przekonaniu, że w funkcjach lepiej się odnajduję. Kolejny krokiem było
+ustalenie jakich funkcji konkretnie będę potrzebować.
+
+Plik game_logic.py:
+
+Gra powinna zostać wyświetlana w postaci planszy w Terminalu, zatem pierwszą funkcję jaką stworzyłam to była funkcja:
+"show_table". Aby ta funkcja powstała musiałam w pierwszej kolejności stworzyć listę elementów, na którą składałaby się
+plansza: "table = ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#']".Następnie, stworzyłam w funkcji show_table
+"obrazek planszy", gdzie każde pole posiada swój numer od 1 do 9. W funkcji również znajduje się pętla "for",
+która zapisuje wybór gracza X lub O na liście oraz w planszy.
+
+Kolejna funkcja to "place_marker", która odpowiada za położenie wyboru gracza w odpowiednim miejscu na planszy.
+Jej parametry to:
+
+- table, czyli plansza;
+- marker, czyli znacznik/symbol; oraz
+- position, czyli miejsce.
+
+Następna funkcja to "check_space", która sprawdza, czy miejsce na planszy jest wolne.
+Kolejna funkcja sprawdza, czy plansza została już zapełniona: "full_table_check".
+Funkcja "check_win" odpowiada za sprawdzenie, czy ktoś już wygrał - zastosowałam tutaj sporą ilość warunku "if",
+aby sprawdzić, czy ułożenie markerów równa się z wygraną. Ostatnia funkcja o nazwie "re_match" odpowiada za pytanie,
+czy gracze chcą grać kolejną grę.
+
+Plik conversation.py:
+
+Na samym początku pisania kodu chciałam, aby gra pytała się graczy o imiona i zwracała się za każdym razem do gracza po
+imieniu, aby można było w łatwy sposób odróżnić, czyja jest kolej grania.
+
+Zaczęłam od pisania globalnego kodu, który jeszcze przed uruchomieniem gry zapyta się graczy o imiona:
+
+- player1name;
+- player2name.
+
+Zrobiłam to za pomocą pętli "while True". Do każdej z tych zmiennych postawiłam kilka warunków:
+
+- aby imię nie było cyfrą; [player1name.isdigit()]
+- aby imię nie było spacją; [player1name.isspace()]
+- aby imię nie miało mniej jak 2 znaki; [len(player1name) < 2]
+- aby imię zaczynało się od wielkiej litery. [player1name[1].isupper()]
+
+Przy każdym ww. błędzie program zwraca nowy input wraz z instrukcją.
+
+Pierwszą funkcją w tym pliku jest funkcja "players_input", która przyjmuje parametry player1 oraz player2. Funkcja pyta
+pierwszego gracza jakim symbolem chce grać w grę: X czy O. Po wyborze pierwszego gracza program sam ustala symbol dla
+gracza numer dwa. Jeżeli gracz numer jeden wpisze coś innego niż X lub O, program mu oznajmi, że może wybrac tylko X lub
+O i ponownie gracz będzie musiał wpisać swój wybór.
+
+Następna funkcja to players_choice, która przyjmuje takie parametry jak:
+
+- current_player;
+- table.
+
+Funkcja prosi gracza o wpisanie numeru od 1 do 9. Ten input jest wpisany w zmienną "choice", której również postawiłam
+warunek, który mówi, że tylko można wpisać numery od 1 do 9. Przy każdej wpisanej mniejszej lub większej cyfrze z tego
+przedziału program informuje, że można wpisać tylko numery od 1 do 9 i prosi o ponowny wybór gracza. W tej funkcji
+również została zawarta pętla "while not", która wykorzystuje funkcję "check_space". Na samej górze pliku funkcja
+została zimportowana z pliku game_logic.py. Pętla sprawdza wybór gracza i zwraca informację, jeżeli miejsce jest zajęte
+oraz prosi gracza o wpisanie ponownej wartości.
+
+Plik main_game_tictactoe.py:
+
+W pierwszej kolejności zaimportowałam wszystkie potrzebne funkcje z dwóch poprzednich plików. Zaczęłam pisanie kodu gry
+od zwrotu "if __name__ == "__main__"", aby gra uruchomiła się tylko wtedy, jak włączamy ją bezpośrednio. Na początku
+gra wita graczy po imieniu. Gra odbywa się w pętli "while True", która sprawdza zapełnienie planszy i, jeżeli plansza
+nie jest zapełniona ("while not") to wyżej w kodzie został użyty licznik i = 1, aby w tym momencie móc za pomocą modulo
+i % 2 = 0 określić, którego gracza jest teraz kolej. Do tego warunku został również parametr current_player dopisany,
+aby dodatkowo gra wywoływała gracza po imieniu do gry. Następnie, gra prosi o wybór markera X lub O. Kolejny etap kodu
+to wywoływanie funkcji "players_choice" zapisanej w zmiennej "position"; funkcji "place_marker" oraz "show_table".
+Po wyborze przez gracza markera X lub O, program prosi go o wybranie pola od 1 do 9. Po wyborze gracza miejsca pokazuje
+się plansza z pustymi miejscami oprócz miejsca wybranego przez gracza ze znacznikiem X lub O. Gra działa do momentu aż
+któryś z graczy wygra, o czym gra informuje. Po wygranej gra pyta, czy gracze chcą zagrać w kolejną grę. Jeżeli tak, to
+gra rozpoczyna się od nowa, jeżeli nie to program się zatrzymuje.
+
+
+
