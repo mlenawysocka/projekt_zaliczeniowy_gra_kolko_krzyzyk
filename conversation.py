@@ -38,7 +38,7 @@ def players_input(player1, player2):
 
 def players_choice(current_player, table):
     choice = int(input(f"{current_player}, choose an empty space between 1 and 9: "))
-    if choice not in range(1, 9):
+    if choice not in range(1, 10):
         choice = int(input(f"{current_player}, you can only place a number between 1 and 9! So..? "))
     while not check_space(table, int(choice)):
         choice = input("This space isn't free. Please choose an empty space between 1 and 9: ")
